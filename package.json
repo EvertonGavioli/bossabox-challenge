@@ -1,0 +1,18 @@
+{
+  "name": "bossabox-challenge-backend",
+  "version": "1.0.0",
+  "main": "./src/server.js",
+  "repository": "git@github.com:EvertonGavioli/bossabox-challenge-backend.git",
+  "author": "EvertonGavioli <vertopge@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  },
+  "scripts": {
+    "dev": "node ./src/server.js"
+  }
+}
