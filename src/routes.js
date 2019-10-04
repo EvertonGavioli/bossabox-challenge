@@ -1,9 +1,24 @@
 const express = require("express");
+const router = express.Router();
+const authMiddleware = require("./middlewares/auth");
 
-const routes = express.Router();
+const userController = require("./controllers/userController");
 
-routes.get("/", (req, res) => {
-  return res.json("Hello!!");
+router.get("/hello", (req, res) => {
+  return res.json("hello!");
 });
 
-module.exports = routes;
+/// USER ROUTES ///
+
+//POST register a new user
+router.post("/api/user_register", userController.user_register);
+
+//POST authenticate user
+router.post("/api/user_auth", userController.user_auth);
+
+/// ROUTES WITH AUTHENTICATION ONLY ///
+
+//GET user info authentication
+router.get("/api/user_info", authMiddleware, userController.user_info);
+
+module.exports = router;
