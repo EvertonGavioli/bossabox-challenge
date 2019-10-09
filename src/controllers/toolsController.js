@@ -1,6 +1,5 @@
 const Tools = require("../models/tools");
 
-//GET - list all registered tools OR filter tools by tags
 exports.tools_list = async function(req, res) {
   try {
     const { tag } = req.query;
@@ -19,9 +18,12 @@ exports.tools_list = async function(req, res) {
   }
 };
 
-//POST - Create a new Tool
 exports.tools_create = async function(req, res) {
   try {
+    if (!req.is("application/json")) {
+      return res.status(400).json({ error: "Invalid Content-Type" });
+    }
+
     const tool = await Tools.create(req.body);
 
     return res.status(201).json(tool);
@@ -34,7 +36,6 @@ exports.tools_create = async function(req, res) {
   }
 };
 
-//DELETE - Delete a tool by id
 exports.tools_delete = async function(req, res) {
   try {
     await Tools.findByIdAndRemove(req.params.id);

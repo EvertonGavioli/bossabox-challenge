@@ -1,6 +1,5 @@
 const User = require("../models/user");
 
-//POST register a new user
 exports.user_register = async function(req, res) {
   const { email } = req.body;
 
@@ -17,7 +16,6 @@ exports.user_register = async function(req, res) {
   }
 };
 
-//POST authenticate user
 exports.user_auth = async function(req, res) {
   try {
     const { email, password } = req.body;
@@ -41,7 +39,6 @@ exports.user_auth = async function(req, res) {
   }
 };
 
-//GET user info authentication
 exports.user_info = async function(req, res) {
   try {
     const { userId } = req;
