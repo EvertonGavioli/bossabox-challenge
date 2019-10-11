@@ -1,0 +1,133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API para a aplicação VUTTR. A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags.",
+    "version": "1.0.0",
+    "title": "VUTTR API"
+  },
+  "host": "vuttr-app.herokuapp.com",
+  "basePath": "/api",
+
+  "tags": [
+    {
+      "name": "tools",
+      "description": "Simples repositório para gerenciar ferramentas"
+    }
+  ],
+
+  "schemes": ["https"],
+
+  "paths": {
+    "/tools": {
+      "get": {
+        "tags": ["tools"],
+        "summary": "Rota para listar todas as ferramentas cadastradas / filtrar por tag",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "valor para filtrar ferramentas utilizando uma busca por tag",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Tool"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+
+      "post": {
+        "tags": ["tools"],
+        "summary": "Rota para cadastrar uma nova ferramenta",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Objeto com informações necessárias para adicionar uma nova ferramenta. O id será gerado automaticamente.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Tool"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Tools Create Failed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+
+    "/tools/{id}": {
+      "delete": {
+        "tags": ["tools"],
+        "summary": "Rota para remover uma ferramenta por Id",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da ferramenta para deletar",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "Tool": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
